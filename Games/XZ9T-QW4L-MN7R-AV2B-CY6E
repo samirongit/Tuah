@@ -1,1 +1,1633 @@
---
+--[[ BGSI ]]
+
+                                                -- Bubble Gum Simulator INFINITY  --   
+repeat task.wait() until game:IsLoaded();
+
+BUBBLE_HOLDER = {};
+BUBBLE_CONTENT = {};
+BUBBLE_CHECKS = { "Banned", "Kick", string.lower("Log"); }
+GET, ID, EXECUTOR = nil, 85896571713843, identifyexecutor();
+_G.DEBUG = false;
+_G.VERSION, _G.REPO = 1.1, "https://raw.githubusercontent.com/8T1LiYuMh96vrfvMfqAvlPbi4dR2Hhx8yzE16dG/vVoZlsyDgeOvBT90QbnXoFDQ/refs/heads/main/b8z3Qp9lJ4x7k2mD5tnvC6hwYr/version.lua";
+
+function BUBBLE_HOLDER:Entry()
+    local repo = self:CheckRepo();
+    local checker = cloneref(game:GetService("Players").LocalPlayer);
+    local s = string.upper("No No No")
+
+    if typeof(BUBBLE_HOLDER) == "table" and (game.PlaceId == ID) and hookmetamethod and repo and require and getgc then
+        print(" -- Check Successful -- " .. " | " .. tostring(os.date()))
+    elseif string.find(EXECUTOR, "Solara") then 
+        print(s)
+        checker:Kick("Please make sure to switch Executors")
+        return;
+    elseif (not _G.REPO) or _G.VERSION < 1.0 then 
+        checker:Kick("[Tuah]; Something unexpected happened")
+    else
+        print(" -- Check Failed -- ")
+        checker:Kick("[Tuah]; Something unexpected happened")
+        return task.wait(9e9);
+    end;
+end;
+
+function BUBBLE_HOLDER:Securityx()
+    local checked = 0;
+    local maxChecks = math.max(100,1000);
+    for _, v in next, getgc(true) do
+        if checked > maxChecks then break; end;
+        checked += 1
+        if type(v) == "function" and islclosure(v) then
+            local success, name = pcall(debug.info, v, "n")
+            if success and name and table.find(BUBBLE_CHECKS, name) then
+                local rev_ = LPH_NO_UPVALUES(LPH_NO_VIRTUALIZE(function(...)
+                    warn("Detected;", debug.traceback())
+                    return nil;
+                end))
+                hookfunction(v, rev_)
+            end;
+        end;
+        if checked % 500 == 0 then
+            task.wait();
+        end;
+    end;
+end;
+task.spawn(function() BUBBLE_HOLDER:Securityx() end)
+
+function BUBBLE_HOLDER:CheckRepo()
+    local success, response = pcall(function()
+        return request({ Url = _G.REPO, Method = "GET" })
+    end)
+
+    if success and response and response.StatusCode == 200 then
+        return true;
+    end;
+end;
+
+function BUBBLE_HOLDER:Debug(time)
+    time = task.wait(tonumber(time)) or 1;
+    local dex = "https://raw.githubusercontent.com/infyiff/backup/main/dex.lua";
+    local rspy = "https://raw.githubusercontent.com/infyiff/backup/main/SimpleSpyV3/main.lua";
+
+    if dex and rspy then 
+        task.wait(time);
+        loadstring(game:HttpGet(dex))(); task.wait(time); loadstring(game:HttpGet(rspy))();
+    end;
+end;
+
+function BUBBLE_HOLDER:GetGame()
+    local market_service = game:GetService("MarketplaceService");
+    local succ, m_info = pcall(market_service.GetProductInfo, market_service, game.PlaceId);
+    return succ and m_info.Name or "N/A"
+end;
+
+do 
+
+    local players: Players = cloneref(game:GetService("Players"));
+    local runservice: RunService = cloneref(game:GetService("RunService"));
+    local replicated: ReplicatedStorage = cloneref(game:GetService("ReplicatedStorage"));
+    local replicatedfirst: ReplicatedFirst = cloneref(game:GetService("ReplicatedFirst"));
+    local httpservice: HttpService = cloneref(game:GetService("HttpService"));
+    local client = players.LocalPlayer;
+    local character = client.Character or client.CharacterAdded:Wait();
+    local root = character:WaitForChild("HumanoidRootPart");
+    local tweenservice: TweenService = game:GetService("TweenService");
+    local teleportservice: TeleportService = game:GetService("TeleportService");
+    local virtualuser: VirtualUser = game:GetService("VirtualUser");
+
+    -- Ingame;
+
+    local codes_module =    require(replicated.Shared.Data.Codes)
+    local flavorsD =        require(replicated.Shared.Data.Flavors);
+    local v36 =             require(replicated.Shared.Utils.Chunker);
+    local flavorData =      require(replicated.Shared.Data.Flavors)
+    local gumData =         require(replicated.Shared.Data.Gum)
+    local hatching =        require(replicated.Client.Effects.HatchEgg)
+
+    local network =         cloneref(replicated:WaitForChild("Shared"):WaitForChild("Framework"):WaitForChild("Network"));
+    local event =           network.Remote.RemoteEvent;
+    local function_ =       network.Remote.RemoteFunction;
+    local remotes =         replicated:WaitForChild("Remotes");
+    local pickups =         remotes.Pickups;
+    local collect =         pickups.CollectPickup;
+    local v_u_255 =         v36.new(128, 2);
+    local rendered =        workspace:WaitForChild("Rendered");
+    local coins =           rendered:GetChildren()[13];
+    local coins2 =          rendered:GetChildren()[13];
+    local zones = {"Floating Island", "Outer Space", "Twilight", "The Void", "Zen"}
+    local zones_world2 = {"Dice Island", "Minecart Forest", "Robot Factory"}
+    local EggPool = {"Rainbow Egg", "Void Egg", "Nightmare Egg", "Infinity Egg", "Common Egg", "Spotted Egg", "Iceshard Egg", "Spikey Egg", "Magma Egg", "Crystal Egg", "Lunar Egg", "Hell Egg", "Snowman Egg", "Mining Egg", "Cyber Egg"}
+    local EggMap = {
+        ["silly-egg"] = {name = "Silly Egg", priority = 4},
+        ["rainbow-egg"] = {name = "Rainbow Egg", priority = 3},
+        ["void-egg"] = {name = "Void Egg", priority = 2}, 
+        ["nightmare-egg"] = {name = "Nightmare Egg", priority = 1},
+        ["mining-egg"] = {name = "Mining Egg", priority = 5},
+        ["cyber-egg"] = {name = "Cyber Egg", priority = 6},
+    }
+    local world2Rifts = {
+        ["silly-egg"] = true,
+        ["mining-egg"] = true,
+        ["cyber-egg"] = true
+    }
+
+    -- Control;
+
+    local activeTween = nil;
+    local tweenCancelToken = {};
+
+    function BUBBLE_CONTENT:CancelCurrentTween()
+    if activeTween then
+        activeTween:Cancel()
+        activeTween = nil
+    end
+    tweenCancelToken.cancelled = true
+    end
+
+
+    -- Ui;
+
+    local Repo = "https://raw.githubusercontent.com/8T1LiYuMh96vrfvMfqAvlPbi4dR2Hhx8yzE16dG";
+    local Library = loadstring(game:HttpGet(Repo .. "/vVoZlsyDgeOvBT90QbnXoFDQ/main/q2TmKzVOrbMz"))(); 
+    local Setup = loadstring(game:HttpGet(Repo .. "/vVoZlsyDgeOvBT90QbnXoFDQ/main/HsUTSb1JpEQZ"))(); 
+    local VIM = Setup:VirtualInputManager();
+    Setup:Basics();
+
+    local Window = Library:CreateWindow({
+        Title = "",
+        Icon = { "rbxassetid://101308344257609", UDim2.new(0, 150, 0, 150) }
+    });
+    
+
+    local Tabs = {
+    Dashboard = Window:CreateTab({ Title = "Dashboard", Icon = "rbxassetid://120063430541108" }),
+    Misc = Window:CreateTab({ Title = "Misc", Icon = "rbxassetid://96758572016592" }),
+    Eggs = Window:CreateTab({ Title = "Eggs", Icon = "rbxassetid://112829673416842" }),
+    Pets = Window:CreateTab({ Title = "Pets", Icon = "rbxassetid://95399039153029" }),
+    Teleport = Window:CreateTab({ Title = "Teleport", Icon = "rbxassetid://121975466013059" }),
+    Config = Window:CreateTab({ Title = "Config", Icon = "rbxassetid://94377454418556" })
+    };
+
+    local Sections = {
+    Farming = Tabs.Dashboard:CreateSection({ Title = "Farming", Side = "Left", }),
+    Claim = Tabs.Dashboard:CreateSection({ Title = "Claim", Side = "Right", }),
+    Data = Tabs.Config:CreateSection({ Title = "Data Settings", Side = "Left", }),
+    Server = Tabs.Config:CreateSection({ Title = "Server", Side = "Right", }),
+    Discord = Tabs.Config:CreateSection({ Title = "Discord", Side = "Right", }),
+    Menu = Tabs.Config:CreateSection({ Title = "Menu", Side = "Left", }),
+    Statitics = Tabs.Config:CreateSection({ Title = "Statitics", Side = "Right", }),
+    Theme = Tabs.Config:CreateSection({ Title = "Theme", Side = "Left", }),
+    Customize = Tabs.Pets:CreateSection({ Title = "Customize", Side = "Full", }),
+    Upgrade = Tabs.Pets:CreateSection({ Title = "Upgrade", Side = "Right", }),
+    Animation = Tabs.Pets:CreateSection({ Title = "Animation", Side = "Left", }),
+    Position = Tabs.Pets:CreateSection({ Title = "Position", Side = "Left", }),
+    Rift = Tabs.Eggs:CreateSection({ Title = "Rift", Side = "Left", }),
+    Hatch = Tabs.Eggs:CreateSection({ Title = "Hatch", Side = "Right", }),
+    Teleport = Tabs.Teleport:CreateSection({ Title = "Teleport", Side = "Left", }),
+    Codes = Tabs.Misc:CreateSection({ Title = "Codes", Side = "Left", }),
+    TicketFarm = Tabs.Misc:CreateSection({ Title = "Ticket Farm", Side = "Right", }),
+    World2 = Tabs.Misc:CreateSection({ Title = "World 2", Side = "Full", }),
+    World2Teleport = Tabs.Misc:CreateSection({ Title = "Teleport", Side = "Left", }),
+    };
+
+    local DiscordInvite; DiscordInvite = Sections.Discord:CreateLabel({
+        Text = "discord.gg/tuahhub";
+        Alignment = "Left"; 
+    })
+
+    local DiscordRecieved = Sections.Discord:CreateButton({
+        Text = "Join Discord";
+        Alignment = "Center"; 
+        Callback = function()
+             local i, fallback = "discord.gg/tuahhub", "discord.gg/HPa9UwxssG";
+             
+
+             -- // DiscordInvite:ChangeText(tostring(i))
+             setclipboard(tostring(fallback));
+             Library:Notify("Copied Invite!", 2, "Tuah - Discord");
+        end;
+    })
+
+    local CodesRedeem = Sections.Codes:CreateButton({
+        Text = "Redeem all Codes";
+        Alignment = "Left"; 
+        Callback = function()
+             BUBBLE_CONTENT:RedeemAllCodes()
+        end;
+    })
+
+    local DebugCodes = Sections.Codes:CreateButton({
+        Text = "[Debug] Codes";
+        Alignment = "Left"; 
+        Callback = function()
+            print(table.concat(BUBBLE_CONTENT:GetAllCodes(), ", "))
+        end;
+    })
+
+    local AutoBlow = Sections.Farming:CreateToggle({
+        Text = "Auto Blow Bubbles";
+        Subtext = "";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(Value)
+            getgenv().auto_blow_bubbles = Value;
+
+            while getgenv().auto_blow_bubbles do task.wait()
+                task.spawn(function()
+                    BUBBLE_CONTENT:AutoBlowBubbles()
+                end)
+            end;
+        end;    
+        Flag = "auto_blow_bubbles";
+    })
+
+    local AutoSell = Sections.Farming:CreateToggle({
+        Text = "Auto Sell Bubbles";
+        Subtext = "";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(Value)
+            getgenv().auto_sell_bubbles = Value;
+
+            if getgenv().auto_sell_bubbles then task.wait()
+                task.spawn(function()
+                    BUBBLE_CONTENT:AutoSell()
+                end)
+            else
+                BUBBLE_CONTENT:CancelCurrentTween();
+            end;
+        end;    
+        Flag = "auto_sell_bubbles";
+    })
+
+    local AutoSellRobot = Sections.World2:CreateToggle({
+        Text = "Auto Sell";
+        Subtext = "Uses Robot Island";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(Value)
+            getgenv().sell_robot = Value;
+
+            if getgenv().sell_robot then task.wait()
+                task.spawn(function()
+                    BUBBLE_CONTENT:AutoSellRobot()
+                end)
+            end;
+        end;    
+        Flag = "auto_sell_robot";
+    })
+
+    local AutoSell250x = Sections.Farming:CreateToggle({
+        Text = "Auto Sell 250x Rift";
+        Subtext = "Sells on 250x Rift when spawned";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(Value)
+            getgenv().sell_if250x = Value;
+        end;    
+        Flag = "auto_sell_250x";
+    })
+
+    local AutoLoot = Sections.Farming:CreateToggle({
+        Text = "Auto Loot";
+        Subtext = "";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(Value)
+            getgenv().auto_loot = Value;
+
+            while getgenv().auto_loot do task.wait()
+                task.spawn(function()
+                    BUBBLE_CONTENT:CollectLoot()
+                end)
+            end;
+        end;    
+        Flag = "auto_loot";
+    })
+
+    local ClaimChests = Sections.Claim:CreateToggle({
+        Text = "Claim Chests";
+        Subtext = "";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(v)
+            getgenv().claim_chest = v;
+
+            if v then
+                Library:Notify("Waiting 30sec for Chest Spawns", 2, "Tuah")
+            end;
+    
+            while getgenv().claim_chest do task.wait();
+                task.spawn(function()
+                    BUBBLE_CONTENT:ClaimChest()       
+                end)
+            end;
+        end;
+        Flag = "auto_claim_chests";
+    })
+    
+    local ClaimDaily = Sections.Claim:CreateToggle({
+        Text = "Claim Daily";
+        Subtext = "";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(v)
+            getgenv().claim_daily = v;
+    
+            while getgenv().claim_daily do task.wait();
+                task.spawn(function()
+                    BUBBLE_CONTENT:ClaimDailyReward()       
+                end)
+            end;
+        end;
+        Flag = "auto_claim_daily";
+    })
+    
+    local ClaimPlaytime = Sections.Claim:CreateToggle({
+        Text = "Claim Playtime";
+        Subtext = "";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(v)
+            getgenv().claim_playtime = v;
+    
+            while getgenv().claim_playtime do task.wait();
+                task.spawn(function()
+                    BUBBLE_CONTENT:ClaimPlaytime()       
+                end)
+            end;
+        end;
+        Flag = "auto_claim_playtime";
+    })
+    
+    local ClaimWheel = Sections.Claim:CreateToggle({
+        Text = "Claim Wheel";
+        Subtext = "";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(v)
+            getgenv().claim_wheel = v;
+    
+            while getgenv().claim_wheel do task.wait();
+                task.spawn(function()
+                    BUBBLE_CONTENT:ClaimWheelSpin()       
+                end)
+            end;
+        end;
+        Flag = "auto_claim_wheel_spin";
+    })
+    
+    local WinDoggy = Sections.Claim:CreateToggle({
+        Text = "Win Doggy";
+        Subtext = "Auto Wins the Minigame";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(v)
+            getgenv().win_doggy = v;
+    
+            while getgenv().win_doggy do task.wait();
+                task.spawn(function()
+                    BUBBLE_CONTENT:AutoWinDoggyGame()       
+                end)
+            end;
+        end;
+        Flag = "auto_win_doggy_game";
+    })
+
+    local ClaimSeason = Sections.Claim:CreateToggle({
+        Text = "Claim Season";
+        Subtext = "";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(v)
+            getgenv().claim_season = v;
+    
+            while getgenv().claim_season do task.wait(math.random(1,2));
+                task.spawn(function()
+                    BUBBLE_CONTENT:ClaimSeason();
+                end)
+            end;
+        end;
+        Flag = "claim_season";
+    })
+    
+    local Save; Save = Sections.Data:CreateButton({
+        Text = "Save Config",
+        Alignment = "Left",
+        Callback = function()
+            getgenv().checktsshit = false;
+            Library:Save() getgenv().checktsshit = true;
+
+            Library:Notify("Saved Config to " .. Library.Paths.Data[1], 3, "Tuah");
+        end,
+    })
+
+    local Load; Load = Sections.Data:CreateButton({
+        Text = "Load Config",
+        Alignment = "Left",
+        Callback = function()
+            Library:Load()
+
+            if Library.Paths.Data and Library or getgenv().checktsshit == true then
+            Library:Notify("Loaded saved Config", 3, "Tuah");
+            end;
+        end,
+    })
+    
+    local AutoSave; AutoSave = Sections.Data:CreateToggle({
+        Text = "Auto Save";
+        Subtext = "";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(Value)
+            getgenv().save_ts = Value;
+            
+            if Value then
+            Library:Save(); print("presaved")
+            end;
+
+            task.spawn(function()
+                while getgenv().save_ts do
+                    task.wait(15)
+                    Library:Save()
+                end
+            end)
+        end;    
+        Flag = "auto_save";
+    })
+
+    local UiToggle = Sections.Menu:CreateKeybind({
+        Text = "Toggle";
+        Subtext = "Hide Menu with Key" ;
+        Alignment = "Left"; 
+        Default = "N"; 
+        Callback = function() 
+            Window:Visibility();
+        end;
+        Flag = "ui_keybind";
+    });
+    
+    local Unload = Sections.Menu:CreateButton({
+        Text = "Unload";
+        Alignment = "Center"; 
+        Callback = function() 
+            Window:Exit();
+        end;
+    });
+
+    getgenv().theme_set = nil;
+    local ThemeSelected = Sections.Theme:CreateDropdown({
+        Text = "Theme";
+        Subtext = "";
+        Alignment = "Left";
+        Choices = { "Dark", "Light", "Midnight", "Bloom", "Minecraft", "Windows 11", "Lotus Dark", "Default" };
+        Multi = false;
+        Default = "Default";
+        Callback = function(Value)
+             getgenv().theme_set = Value;
+        end;
+        Flag = "theme_selected";
+    })
+
+    local ThemeSet = Sections.Theme:CreateToggle({
+    Text = "Set Theme";
+    Subtext = "";
+    Alignment = "Left";
+    Default = false;
+    Callback = function(v)
+        if v and getgenv().theme_set ~= nil then
+            Library.Theme = tostring(getgenv().theme_set);
+        else
+            Library.Theme = "Default";
+        end;
+    end;
+    Flag = "theme_set";
+})
+
+local Rejoin = Sections.Server:CreateButton({
+    Text = "Rejoin";
+    Alignment = "Center"; 
+    Callback = function() 
+        task.spawn(function()BUBBLE_CONTENT:Rejoin()end)
+    end;
+});
+
+local ServerHop = Sections.Server:CreateButton({
+    Text = "Server Hop";
+    Alignment = "Center"; 
+    Callback = function() 
+        task.spawn(function()BUBBLE_CONTENT:ServerHop()end)
+    end;
+});
+
+local AntiAfk = Sections.Server:CreateToggle({
+    Text = "Anti Afk";
+    Subtext = "";
+    Alignment = "Left";
+    Default = false;
+    Callback = function(v)
+        getgenv().anti_afk = v;
+
+        while getgenv().anti_afk do task.wait(math.random(10,30))
+        task.spawn(function()BUBBLE_CONTENT:AntiAFK()end)
+        end;
+    end;
+    Flag = "anti_afk";
+})
+
+local Uptime = Sections.Statitics:CreateLabel({
+        Text = "";
+        Alignment = "Left"; 
+})
+
+local Executor = Sections.Statitics:CreateLabel({
+        Text = "";
+        Alignment = "Left"; 
+})
+
+local Expiry = Sections.Statitics:CreateLabel({
+        Text = "";
+        Alignment = "Left"; 
+})
+
+local Fps = Sections.Statitics:CreateLabel({
+        Text = "";
+        Alignment = "Left"; 
+})
+
+local Coins = Sections.Statitics:CreateLabel({
+        Text = "Last Sell: N/A";
+        Alignment = "Left"; 
+})
+    
+    local startTime = tick();
+    task.spawn(function()
+        while true do
+            local elapsed = tick() - startTime;
+            local hours = math.floor(elapsed / 3600);
+            local minutes = math.floor((elapsed % 3600) / 60);
+            local seconds = math.floor(elapsed % 60);
+    
+            local formatted = string.format("Uptime: %02d:%02d:%02d", hours, minutes, seconds);
+            Uptime:ChangeText(formatted);
+    
+            task.wait(1);
+        end;
+    end)
+
+    task.spawn(function()
+        get = getexecutorname();
+
+        if get then 
+            Executor:ChangeText(tostring(get));
+        end;
+    end)
+
+    task.spawn(function()
+        keyExpire = "10h Key - Freemium"
+
+        if keyExpire then 
+            Expiry:ChangeText(keyExpire)
+        end;
+    end)
+
+    local lastTime = tick()
+    local frames = 0;
+    task.spawn(function()
+        runservice.Heartbeat:Connect(function(deltaTime)
+            frames += 1
+            local now = tick()
+        
+            if now - lastTime >= 1 then
+                Fps:ChangeText("FPS: " .. frames)
+                frames = 0
+                lastTime = now
+            end
+        end)
+    end)
+
+    task.spawn(function()
+            event.OnClientEvent:Connect(function(eventName, data)
+    if eventName == "ItemsReceived" and typeof(data) == "table" then
+        for _, item in ipairs(data) do
+            if item.Currency == "Coins" and item.Type == "Currency" then
+                local amount = tonumber(item.Amount)
+                if amount then
+                    local formatted = string.format("%0.0f", amount):reverse():gsub("(%d%d%d)", "%1,"):reverse():gsub("^,", "")
+                    Coins:ChangeText("Last Sell: " .. formatted .. " Coins")
+                end
+            end
+        end
+    end
+end)
+end)
+
+
+
+local PetChoosen = Sections.Customize:CreateInput({
+        Text = "Pet Name";
+        Subtext = "Case Sensitive!";
+        Alignment = "Left";
+        Default = "";
+        Placeholder = "";
+        Callback = function(Value)
+            getgenv().pet_name = Value;
+        end;
+        Flag = "pet_name";
+})
+    
+local PetFreeze = Sections.Customize:CreateToggle({
+        Text = "Freeze Pet";
+        Subtext = "";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(v)
+            getgenv().pet_freeze = v;
+            
+            if v and getgenv().pet_name == "" then 
+                Library:Notify("Enter a Pet first!", 4, "Tuah")
+            end;
+
+            if v then
+            task.spawn(pcall, function()
+                BUBBLE_CONTENT:FreezePet(getgenv().pet_name, v)
+            end)
+        end;
+        end;
+        Flag = "freeze_pet";
+})
+
+local PetMythic = Sections.Upgrade:CreateToggle({
+        Text = "Make Pet Mythic";
+        Subtext = "";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(v)
+            getgenv().pet_mythic = v;
+            
+            if v then
+            task.spawn(pcall, function()
+            BUBBLE_CONTENT:MakePetMythic(getgenv().pet_name, v)
+            end)
+        end;
+        end;
+        Flag = "mythic_pet";
+})
+
+    
+local PetShiny = Sections.Upgrade:CreateToggle({
+        Text = "Make Pet Shiny";
+        Subtext = "";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(v)
+            getgenv().pet_shiny = v;
+            
+            if v then
+            task.spawn(pcall, function()
+            BUBBLE_CONTENT:MakePetShiny(getgenv().pet_name, v)
+            end)
+        end;
+        end;
+        Flag = "shiny_pet";
+})
+
+local PetOffset; PetOffset = Sections.Position:CreateSlider({
+        Text = "Offset";
+        Alignment = "Left";
+        Default = 4.2999;
+        Callback = function(Value)
+             getgenv().pet_offset = Value;
+            end;
+        Flag = "pet_offset";
+        Floats = 0; 
+        Limits = { 4.2999, 20 };
+        Increment = 1;
+})
+
+local PetOffsetEnabled = Sections.Position:CreateButton({
+        Text = "Apply";
+        Alignment = "Center"; 
+        Callback = function(v)
+            getgenv().pet_offset_enabled = v;
+
+            task.spawn(function()
+            BUBBLE_CONTENT:ChangePetOffset(getgenv().pet_name, getgenv().pet_offset)
+            end)
+        end;
+})
+
+local PetOffsetReset = Sections.Position:CreateButton({
+        Text = "Reset Offset";
+        Alignment = "Center"; 
+        Callback = function(v)
+            PetOffset:SetValue(4.2999)
+            PetOffset:ChangeText("Reset!");
+
+            task.spawn(function()
+            BUBBLE_CONTENT:ChangePetOffset(getgenv().pet_name, 4.2999)
+            end)
+            task.wait(1);
+            PetOffset:ChangeText("Apply");
+        end;
+})
+    
+local PetAnimation = Sections.Animation:CreateDropdown({
+        Text = "Animation";
+        Subtext = "";
+        Alignment = "Left";
+        Choices = { "Walk", "Fly" };
+        Multi = false;
+        Default = nil;
+        Callback = function(Value)
+             getgenv().pet_animation = Value;
+             end;
+        Flag = "animation_pet";
+})
+
+local PetAnimationEnabled = Sections.Animation:CreateToggle({
+        Text = "Apply Animation";
+        Subtext = "";
+        Alignment = "Left";
+        Default = false;
+        Callback = function(v)
+            getgenv().pet_animation_enabled = v
+
+            task.spawn(function()
+            if v then 
+            BUBBLE_CONTENT:ChangePetAnimation(getgenv().pet_name, getgenv().pet_animation)
+            elseif not v and getgenv().pet_animation == "Fly" then
+            BUBBLE_CONTENT:ChangePetAnimation(getgenv().pet_name, "Fly")
+            elseif not v and getgenv().pet_animation == "Walk" then 
+            BUBBLE_CONTENT:ChangePetAnimation(getgenv().pet_name, "Walk")
+            end;
+        end)
+        end;
+        Flag = "animation_pet";
+})
+
+local RiftOptions = Sections.Rift:CreateDropdown({
+    Text = "Select Rift";
+    Subtext = "";
+    Alignment = "Left";
+    Choices = { "silly-egg", "rainbow-egg", "void-egg", "nightmare-egg", "mining-egg", "cyber-egg" };
+    Multi = true;
+    Default = nil;
+    Callback = function(Value)
+        getgenv().rift_selected = Value
+        end;
+    Flag = "rift_selected";
+})
+
+local AutoRift = Sections.Rift:CreateToggle({
+    Text = "Auto Rift";
+    Subtext = "";
+    Alignment = "Left";
+    Default = false;
+    Callback = function(Value)
+        getgenv().auto_rift = Value
+        if getgenv().auto_rift or getgenv().auto_hach then
+            task.spawn(function()
+                BUBBLE_CONTENT:AutoHatchHybrid()
+            end)
+        end
+    end;
+    Flag = "auto_rift";
+})
+
+local EggOptions = Sections.Hatch:CreateDropdown({
+    Text = "Select Egg";
+    Subtext = "";
+    Alignment = "Left";
+    Choices = EggPool;
+    Multi = true;
+    Default = nil;
+    Callback = function(Value)
+        getgenv().egg_selected = Value
+        end;
+    Flag = "egg_selected";
+})
+
+local MethodOptions = Sections.Hatch:CreateDropdown({
+    Text = "Method";
+    Subtext = "";
+    Alignment = "Left";
+    Choices = { "Island", "Spawn" };
+    Multi = false;
+    Default = nil;
+    Callback = function(Value)
+        getgenv().hatch_method = Value
+        end;
+    Flag = "hatch_method";
+})
+
+local AutoHatch = Sections.Hatch:CreateToggle({
+    Text = "Auto Hatch";
+    Subtext = "";
+    Alignment = "Left";
+    Default = false;
+    Callback = function(Value)
+        getgenv().auto_hach = Value
+        if getgenv().auto_rift or getgenv().auto_hach then
+            task.spawn(function()
+                BUBBLE_CONTENT:AutoHatchHybrid()
+            end)
+        end
+    end;
+    Flag = "auto_hach";
+})
+
+local AutoPickupWorld2 = Sections.World2:CreateToggle({
+    Text = "Auto Collect Tickets";
+    Subtext = "";
+    Alignment = "Left";
+    Default = false;
+    Callback = function(Value)
+        getgenv().auto_loot_world2 = Value;
+
+        while getgenv().auto_loot_world2 do task.wait()
+            task.spawn(function()
+                BUBBLE_CONTENT:CollectLootWorld2()
+            end)
+        end;
+    end;    
+    Flag = "auto_loot_tickets";
+})
+
+local ZoneSelections = Sections.Teleport:CreateDropdown({
+    Text = "Select Zone";
+    Subtext = "";
+    Alignment = "Left";
+    Choices = zones;
+    Multi = false;
+    Default = nil;
+    Callback = function(v) 
+        getgenv().selected_zone = v;
+     end;
+    Flag = "selected_zone";
+})
+
+local ZoneTeleport = Sections.Teleport:CreateButton({
+    Text = "Teleport";
+    Alignment = "Left"; 
+    Callback = function() 
+        BUBBLE_CONTENT:ZoneTeleport();
+     end;
+})
+
+local ZoneSelectionWorld2; ZoneSelectionWorld2 = Sections.World2Teleport:CreateDropdown({
+    Text = "Select Zone";
+    Subtext = "";
+    Alignment = "Left";
+    Choices = zones_world2;
+    Multi = false;
+    Default = nil;
+    Callback = function(v) 
+        getgenv().selected_zone_world2 = v;
+     end;
+    Flag = "selected_zone_world2";
+})
+
+local ZoneTeleportWorld2B; ZoneTeleportWorld2B = Sections.World2Teleport:CreateButton({
+    Text = "Teleport";
+    Alignment = "Left"; 
+    Callback = function() 
+        BUBBLE_CONTENT:ZoneTeleportWorld2();
+     end;
+})
+
+local UnlockAllIslands; UnlockAllIslands = Sections.Teleport:CreateButton({
+    Text = "Unlock all Islands";
+    Alignment = "Left";
+    Callback = function()
+        local islandsFolder = workspace.Worlds["The Overworld"]:FindFirstChild("Islands");
+
+        if (not islandsFolder) then
+            warn("folder not found, weird")
+            return;
+        end;
+
+        local islands = islandsFolder:GetChildren()
+        table.sort(islands, function(a, b)
+            local aHitbox = a:FindFirstChild("Island") and a.Island:FindFirstChild("UnlockHitbox")
+            local bHitbox = b:FindFirstChild("Island") and b.Island:FindFirstChild("UnlockHitbox")
+            if aHitbox and bHitbox then
+                return aHitbox.Position.Y < bHitbox.Position.Y;
+            end;
+            return false;
+        end)
+
+        for i, island in ipairs(islands) do
+            local islandModel = island:FindFirstChild("Island")
+            local hitbox = islandModel and islandModel:FindFirstChild("UnlockHitbox")
+            if hitbox and hitbox:IsA("BasePart") then
+                local name = island.Name or ("Island " .. tostring(i))
+                UnlockAllIslands:ChangeText("Unlocking: " .. name)
+                root.CFrame = hitbox.CFrame + Vector3.new(0, 2, 0)
+                task.wait(1);
+            end;
+        end;
+
+        UnlockAllIslands:ChangeText("✅ All Islands Unlocked!");
+        task.wait(math.random(2,3));
+        UnlockAllIslands:ChangeText("Unlock all Islands");
+    end;
+})
+
+local UnlockAllIslands2; UnlockAllIslands2 = Sections.World2Teleport:CreateButton({
+    Text = "Unlock all Islands";
+    Alignment = "Left";
+    Callback = function()
+        local islandsFolder = workspace.Worlds["Minigame Paradise"].Islands;
+
+        if (not islandsFolder) then
+            warn("folder not found")
+            return;
+        end;
+        local islands = islandsFolder:GetChildren()
+
+        table.sort(islands, function(a, b)
+            local aHitbox = a:FindFirstChild("Island") and a.Island:FindFirstChild("UnlockHitbox")
+            local bHitbox = b:FindFirstChild("Island") and b.Island:FindFirstChild("UnlockHitbox")
+            if aHitbox and bHitbox then
+                return aHitbox.Position.Y < bHitbox.Position.Y;
+            end;
+            return false;
+        end)
+
+        for i, island in ipairs(islands) do
+            local model = island:FindFirstChild("Island")
+            local hitbox = model and model:FindFirstChild("UnlockHitbox")
+            if hitbox and hitbox:IsA("BasePart") then
+                local name = island.Name or ("Island " .. tostring(i))
+                UnlockAllIslands2:ChangeText("Unlocking: " .. name)
+                root.CFrame = hitbox.CFrame + Vector3.new(0, 2, 0)
+                task.wait(1);
+            end;
+        end;
+
+        UnlockAllIslands2:ChangeText("✅ All Islands Unlocked!");
+        task.wait(math.random(2,3));
+        UnlockAllIslands2:ChangeText("Unlock all Islands");
+    end;
+})
+
+function BUBBLE_CONTENT:ZoneTeleport()
+    trim = "Workspace.Worlds.The Overworld.Islands.".. tostring(getgenv().selected_zone) ..".Island.Portal.Spawn";
+    event:FireServer("Teleport", trim)
+end;
+
+function BUBBLE_CONTENT:ZoneTeleportWorld2()
+    trim = "Workspace.Worlds.Minigame Paradise.Islands." .. tostring(getgenv().selected_zone_world2) ..".Island.Portal.Spawn";
+    event:FireServer("Teleport", trim)
+end;
+
+function BUBBLE_CONTENT:GetRifts()
+    for i, v in pairs(workspace.Rendered.Rifts:GetChildren()) do 
+        if v:IsA("Model") then 
+            return v.Name
+        end;
+    end;
+end;
+
+function BUBBLE_CONTENT:GetRiftPart()
+    for i, v in pairs(workspace.Rendered.Rifts:GetChildren()) do 
+        if v:IsA("Model") and v:FindFirstChild("EggPlatformSpawn"):GetChildren()[4] then 
+            return v;
+        end;
+    end;
+end;
+
+function BUBBLE_CONTENT:Hatch(riftName)
+    local eggData = EggMap[riftName]
+    if (not eggData) then 
+        return 
+    end;
+
+    local eggName = eggData.name;
+    event:FireServer("HatchEgg", eggName, 6)
+end;
+
+function BUBBLE_CONTENT:AutoHatchRift()
+    while getgenv().auto_rift do task.wait(1)
+        local selected = getgenv().rift_selected or {}
+        local rifts = workspace.Rendered.Rifts:GetChildren()
+
+        local availableRifts = {}
+
+        for _, rift in ipairs(rifts) do
+            if rift:IsA("Model") and table.find(selected, rift.Name) then
+                local eggPlatform = rift:FindFirstChild("EggPlatformSpawn")
+                if eggPlatform and #eggPlatform:GetChildren() >= 4 then
+                    local eggData = EggMap[rift.Name]
+                    if eggData then
+                        table.insert(availableRifts, {
+                            model = rift,
+                            part = eggPlatform:GetChildren()[4],
+                            name = rift.Name,
+                            priority = eggData.priority
+                        })
+                    end
+                end
+            end
+        end
+
+        table.sort(availableRifts, function(a, b)
+            return a.priority > b.priority
+        end)
+
+        for _, riftInfo in ipairs(availableRifts) do
+            if not getgenv().auto_rift then return end
+            local rift = riftInfo.model
+            local hatchPart = riftInfo.part
+            local riftName = riftInfo.name
+
+            getgenv().last_rift_part = hatchPart
+            BUBBLE_CONTENT:SafeTweenToPart(hatchPart, { priority = riftInfo.priority or 1 })
+
+            while rift:IsDescendantOf(workspace) and getgenv().auto_rift do
+                while getgenv().is_selling do task.wait() end
+                BUBBLE_CONTENT:Hatch(riftName)
+                task.wait(1.5)
+            end
+            break
+        end
+    end
+end
+
+function BUBBLE_CONTENT:GetEggFromIsland(returnPart, name)
+    local rendered = workspace.Rendered.Generic:GetChildren()
+    name = name or getgenv().selected_egg_normal
+
+    for _, v in pairs(rendered) do
+        if v:IsA("Model") and v.Name:match(name) and v:FindFirstChild("Hitbox") then
+            return returnPart and v or v.Name
+        end
+    end
+end
+
+function BUBBLE_CONTENT:HatchNormal()
+    local method = getgenv().hatch_method or {}
+    local selectedEggs = getgenv().egg_selected or {}
+
+    if #selectedEggs == 0 then return end
+
+    for _, eggName in ipairs(selectedEggs) do
+        if table.find(method, "Spawn") then
+            for _, v in ipairs(workspace.Rendered.Generic:GetChildren()) do
+                if v:IsA("Model") and v.Name:match(eggName) and v:FindFirstChild("Hitbox") then
+                    local part = v:FindFirstChild("Hitbox")
+                    if part then
+                        getgenv().last_rift_part = part
+                        BUBBLE_CONTENT:SafeTweenToPart(getgenv().last_rift_part, { priority = 0 })
+
+                        while getgenv().auto_hach and v:IsDescendantOf(workspace) do
+                            while getgenv().is_selling do task.wait() end
+                            event:FireServer("HatchEgg", eggName, 6)
+                            task.wait(1.5)
+                        end
+                        return
+                    end
+                end
+            end
+        end
+
+        if table.find(method, "Island") then
+            local part = BUBBLE_CONTENT:GetEggFromIsland(true, eggName)
+            local realEggName = BUBBLE_CONTENT:GetEggFromIsland(false, eggName)
+
+            if part and realEggName then
+                getgenv().last_rift_part = part:FindFirstChild("Hitbox") or part
+                    BUBBLE_CONTENT:SafeTweenToPart(getgenv().last_rift_part, { priority = 0 })
+
+                while getgenv().auto_hach and part:IsDescendantOf(workspace) do
+                    while getgenv().is_selling do task.wait() end
+                    event:FireServer("HatchEgg", realEggName, 6)
+                    task.wait(1.5)
+                end
+                return
+            end
+        end
+    end
+end
+
+function BUBBLE_CONTENT:AutoHatchHybrid()
+    local currentRifts = {}
+
+    local function updateRifts()
+        currentRifts = {};
+
+        local selected = getgenv().rift_selected or {}
+        for _, rift in ipairs(workspace.Rendered.Rifts:GetChildren()) do
+            if rift:IsA("Model") and table.find(selected, rift.Name) then
+                local eggPlatform = rift:FindFirstChild("EggPlatformSpawn")
+                if eggPlatform and #eggPlatform:GetChildren() >= 4 then
+                    local eggData = EggMap[rift.Name]
+                    if eggData then
+                        table.insert(currentRifts, {
+                            model = rift,
+                            part = eggPlatform:GetChildren()[4],
+                            name = rift.Name,
+                            priority = eggData.priority
+                        })
+                    end;
+                end;
+            end;
+        end;
+
+        table.sort(currentRifts, function(a, b)
+            return a.priority > b.priority
+        end)
+    end
+
+    workspace.Rendered.Rifts.ChildAdded:Connect(updateRifts)
+    workspace.Rendered.Rifts.ChildRemoved:Connect(updateRifts)
+    updateRifts()
+
+    while getgenv().auto_rift or getgenv().auto_hach do
+        task.wait()
+        updateRifts()
+        local riftFallback = true;
+
+        for _, riftInfo in ipairs(currentRifts) do
+            if not getgenv().auto_rift then break end
+
+            local rift = riftInfo.model
+            local hatchPart = riftInfo.part
+            local riftName = riftInfo.name
+            riftFallback = false
+
+            if riftName == "Mining Rift" or riftName == "Cyber Rift" or world2Rifts[riftName] then
+                replicated.Shared.Framework.Network.Remote.Event:FireServer(
+                    "Teleport",
+                    "Workspace.Worlds.Minigame Paradise.FastTravel.Spawn"
+                )
+                task.wait(6)
+            end
+
+            getgenv().last_rift_part = hatchPart
+            BUBBLE_CONTENT:SafeTweenToPart(hatchPart, { priority = riftInfo.priority or 1 })
+
+            while rift:IsDescendantOf(workspace) and getgenv().auto_rift do
+                while getgenv().is_selling do task.wait() end
+                BUBBLE_CONTENT:Hatch(riftName)
+                task.wait(1.5)
+            end;
+        end;
+
+        if riftFallback and getgenv().auto_hach then
+            replicated.Shared.Framework.Network.Remote.Event:FireServer(
+                "Teleport",
+                "Workspace.Worlds.The Overworld.FastTravel.Spawn"
+            )
+            BUBBLE_CONTENT:HatchNormal()
+        end;
+    end;
+end;
+
+function BUBBLE_CONTENT:CollectLoot()
+    repeat task.wait() until #coins:GetChildren() > 0;
+
+    if getgenv().auto_loot then
+        for _, v in pairs(coins:GetChildren()) do
+            collect:FireServer(v.Name);
+            v:Destroy();
+            v_u_255:Remove(v:GetPivot().Position, v);
+        end;
+    end;
+end;
+
+function BUBBLE_CONTENT:CollectLootWorld2()
+    repeat task.wait() until #coins2:GetChildren() > 0
+    local checking__ = client.PlayerGui.ScreenGui.HUD.Left.Currency.Tickets
+
+    if #coins2:GetChildren() == 0 or nil then 
+        coins2 = coins;
+    else
+        coins = coins2;
+    end;
+
+    if getgenv().auto_loot_world2 and checking__.Visible then
+        for _, v in pairs(coins2:GetChildren()) do
+            collect:FireServer(v.Name)
+            v:Destroy();
+        end;
+    end;
+end;
+
+function BUBBLE_CONTENT:ClaimDailyReward()
+    local getRemoteC = event;
+    local c;
+    getRemoteC:FireServer("DailyRewardClaimStars");
+end;
+
+function BUBBLE_CONTENT:ClaimWheelSpin()
+    local getRemoteK = function_;
+    local k;
+    getRemoteK:InvokeServer("WheelSpin");
+end;
+
+function BUBBLE_CONTENT:ClaimPlaytime()
+    local getRemoteJ = function_;
+    for i = 1, 9 do task.wait()
+        getRemoteJ:InvokeServer("ClaimPlaytime", tonumber(i))
+    end;
+end;
+
+function BUBBLE_CONTENT:ClaimPrize()
+    local getRemoteI = event;
+    for i = 1, 20 do task.wait()
+        getRemoteI:FireServer("ClaimPrize", tonumber(i));
+    end;
+end;
+
+function BUBBLE_CONTENT:ClaimSeason()
+    local getRemoteSsn = event;
+    local ssn;
+    getRemoteSsn:FireServer("ClaimSeason")
+end;
+
+function BUBBLE_CONTENT:ClaimChest()
+    local getRemoteK = event;
+
+    local pool__ = {
+        "Giant Chest", "Void Chest", "Ticket Chest"
+    };
+
+    if getgenv().claim_chest then
+    for _, chestName in ipairs(pool__) do
+        getRemoteK:FireServer("ClaimChest", chestName, true)
+        task.wait(math.random(30,40));
+    end;
+end;
+end;
+
+function BUBBLE_CONTENT:AutoWinDoggyGame()
+    local getRemoteL = event;
+
+    while (getgenv().win_doggy and getRemoteL) do task.wait(math.random(30,60))
+        getRemoteL:FireServer("DoggyJumpWin", tonumber("3"))
+        break;
+    end;
+end;
+
+function BUBBLE_CONTENT:Rejoin()
+    game:GetService("TeleportService"):Teleport(ID, client)
+end;
+
+function BUBBLE_CONTENT:ServerHop()
+    local success, result = pcall(function()
+        return httpservice:JSONDecode(game:HttpGet(
+            "https://games.roblox.com/v1/games/" .. ID .. "/servers/Public?sortOrder=Asc&limit=100"
+        ))
+    end);
+
+    if success and result and result.data then
+        for _, server in ipairs(result.data) do
+            if server.playing < server.maxPlayers and server.id ~= game.JobId then
+                local ok, err = pcall(function()
+                    teleportservice:TeleportToPlaceInstance(ID, server.id, client)
+                end);
+                if ok then
+                    break;
+                else
+                    warn("Teleport failed: ", err);
+                end;
+            end;
+        end;
+    else
+        warn("something unexpected happened: ", result);
+    end;
+end;
+
+function BUBBLE_CONTENT:AutoBlowBubbles()
+    local arg = "BlowBubble";
+
+    if typeof(arg) == "string" and network then task.wait()
+        pcall(function()
+            event:FireServer(arg)
+        end)
+    end
+end;
+
+function BUBBLE_CONTENT:AutoSell()
+    local arg, tp, location = "SellBubble", "Teleport", "Workspace.Worlds.The Overworld.Islands.Twilight.Island.Portal.Spawn"
+    local world2_sell_pos = workspace.Worlds["Minigame Paradise"].Sell.Root
+    local get_bubble = client.PlayerGui.ScreenGui.HUD.Left.Currency.Bubble.Frame.Label
+    local sell;
+    local checkWorld2;
+    local checking = client.PlayerGui.ScreenGui.HUD.Left.Currency.Tickets;
+    local default_sell_pos = workspace.Worlds["The Overworld"].Islands.Twilight.Island.Sell.Root;
+
+    if typeof(arg) == "string" and network then
+        while getgenv().auto_sell_bubbles do task.wait()
+            pcall(function()
+                if get_bubble then
+                    local text = get_bubble.ContentText or ""
+                    local current, max = text:match("([%d,]+)%s*/%s*([%d,]+)")
+
+                    if current and max then
+                        current = current:gsub(",", ""):gsub("%s", "")
+                        max = max:gsub(",", ""):gsub("%s", "")
+                        local currentNum = tonumber(current)
+                        local maxNum = tonumber(max)
+
+                        if currentNum and maxNum and currentNum >= maxNum then
+                            getgenv().is_selling = true
+                            local rift = workspace.Rendered.Rifts:FindFirstChild("bubble-rift")
+                            local rift_sell = rift and rift:FindFirstChild("Sell") and rift.Sell:FindFirstChild("Ring")
+
+                            if getgenv().sell_if250x and rift and rift_sell and rift_sell:IsDescendantOf(workspace) then
+                            BUBBLE_CONTENT:SafeTweenToPart(rift_sell, { priority = 2 })
+
+                            task.defer(function()
+                                event:FireServer(tp, location)
+                            end)
+
+                            elseif checking and checking.Visible == true then
+                                local args = {
+                                    "Teleport",
+                                    "Workspace.Worlds.Minigame Paradise.FastTravel.Spawn"
+                                }
+                                event:FireServer(unpack(args))   
+
+                                task.wait(math.random(1.5, 2))
+                                sell = BUBBLE_CONTENT:SafeTweenToPart(world2_sell_pos, { priority = 3 })
+                                task.wait(math.random(2,3)) 
+                                local args = {
+                                    "Teleport",
+                                    "Workspace.Worlds.Minigame Paradise.FastTravel.Spawn"
+                                }
+                                event:FireServer(unpack(args))
+
+                            else
+                                event:FireServer(tp, location)
+                                task.wait(math.random(1.5, 2))
+                                sell = BUBBLE_CONTENT:SafeTweenToPart(default_sell_pos, { priority = 2 })
+                                event:FireServer(tp, location)
+                            end
+
+                            if sell then
+                                sell.Completed:Wait()
+                            end
+
+                            if getgenv().is_selling then
+                                task.wait(math.random(3, 5))
+                                if checking and checking.Visible == true then
+                                    local args = {
+                                        "Teleport",
+                                        "Workspace.Worlds.Minigame Paradise.FastTravel.Spawn"
+                                    }
+                                    event:FireServer(unpack(args))
+                                else
+                                    event:FireServer(tp, location)
+                                end
+                            
+                                event:FireServer(arg)
+                                getgenv().is_selling = false
+                            end;
+                        end
+                    end
+                end
+
+                if sell and get_bubble then
+                    sell.Completed:Wait()
+                    event:FireServer(arg)
+                end
+
+                if sell and getgenv().last_rift_part and getgenv().last_rift_part:IsDescendantOf(workspace) then
+                    BUBBLE_CONTENT:SafeTweenToPart(getgenv().last_rift_part, { priority = 5 })
+                end
+                
+            end)
+        end
+    end
+end
+
+function BUBBLE_CONTENT:AutoSellRobot()
+    local getRemoteBB = event
+    local sellPos_robot = workspace.Worlds["Minigame Paradise"].Islands["Robot Factory"].Island.Sell.Root;
+    local sell;
+
+    while getgenv().sell_robot do
+        local get_bubble = client.PlayerGui.ScreenGui.HUD.Left.Currency.Bubble.Frame.Label
+
+        if get_bubble then
+            local text = get_bubble.ContentText or ""
+            local current, max = text:match("([%d,]+)%s*/%s*([%d,]+)")
+
+            if current and max then
+                current = current:gsub(",", ""):gsub("%s", "")
+                max = max:gsub(",", ""):gsub("%s", "")
+                local currentNum = tonumber(current)
+                local maxNum = tonumber(max)
+
+                if currentNum and maxNum and currentNum >= maxNum then
+                    getgenv().sell_done = false;
+                    ZoneSelectionWorld2:SetValue("Robot Factory");
+                    ZoneTeleportWorld2B:Fire();
+                    task.wait(math.random(1,2));
+
+                    sell = BUBBLE_CONTENT:SafeTweenToPart(sellPos_robot, { priority = 5 })
+
+                    task.defer(function()
+                        getRemoteBB:FireServer("SellBubble")
+                        getgenv().sell_done = true;
+                        task.wait()
+                    end)
+                end
+            end
+        end
+        task.wait()
+        if getgenv().sell_done then
+        task.wait(math.random(1,2))
+        ZoneTeleportWorld2B:Fire();
+        end;
+    end;
+end;
+
+function BUBBLE_CONTENT:FreezePet(pet, check)
+    check = check or false;
+
+    if type(pet) ~= "string" then
+        return;
+    end;
+
+    for _, obj in ipairs(getgc(true)) do
+        if typeof(obj) == "table" and not isreadonly(obj) then
+            if rawget(obj, "Name") == pet then
+                rawset(obj, "CanMove", not check)
+            end;
+        end;
+    end;
+end;
+
+function BUBBLE_CONTENT:MakePetMythic(pet, check)
+    check = check or false;
+
+    if type(pet) ~= "string" then
+        return;
+    end;
+
+    for _, obj in ipairs(getgc(true)) do
+        if typeof(obj) == "table" and not isreadonly(obj) then
+            if rawget(obj, "Name") == pet then
+                rawset(obj, "Mythic", check) 
+            end;
+        end;
+    end;
+end;
+
+
+function BUBBLE_CONTENT:ChangePetOffset(pet, offset)
+    if type(pet) ~= "string" then
+        return;
+    end;
+
+    if type(offset) ~= "number" then
+        return;
+    end;
+
+    for _, obj in ipairs(getgc(true)) do
+        if typeof(obj) == "table" and not isreadonly(obj) then
+            if rawget(obj, "Name") == pet then
+                rawset(obj, "PlayerOffset", offset)
+            end;
+        end;
+    end;
+end;
+
+function BUBBLE_CONTENT:ChangePetAnimation(pet, animation)
+    if type(pet) ~= "string" then
+        return;
+    end;
+
+    if type(animation) ~= "string" then
+        return;
+    end;
+
+    for _, obj in ipairs(getgc(true)) do
+        if typeof(obj) == "table" and not isreadonly(obj) then
+            if rawget(obj, "Name") == pet then
+                rawset(obj, "Animation", animation)
+            end;
+        end;
+    end;
+end;
+
+function BUBBLE_CONTENT:MakePetShiny(pet, check)
+    check = check or false;
+
+    if type(pet) ~= "string" then
+        return;
+    end;
+
+    for _, obj in ipairs(getgc(true)) do
+        if typeof(obj) == "table" and not isreadonly(obj) then
+            if rawget(obj, "Name") == pet then
+                rawset(obj, "Shiny", check)
+            end;
+        end;
+    end;
+end;
+
+function BUBBLE_CONTENT:GetAllCodes()
+    local codes = {};
+    for code in pairs(codes_module) do
+        table.insert(codes, code);
+    end;
+    return codes;
+end;
+
+function BUBBLE_CONTENT:AntiAFK()
+    -- keine ahnung was ich da mache 
+    client.Idled:Connect(function()
+        virtualuser:Button2Down(Vector2.new(1,0), workspace.CurrentCamera.CFrame);
+        task.wait(math.max(1,5));
+        virtualuser:Button2Up(Vector2.new(0,0), workspace.CurrentCamera.CFrame);
+    end)
+
+    local t1 = os.time();
+    task.wait(math.random(5,10));
+    local t2 = os.time();
+    local t = os.difftime(t2, t1)
+
+    task.defer(function()
+        task.delay(tonumber(t), function()
+            VIM:Press("B");
+        end)
+    end)
+end;
+
+function BUBBLE_CONTENT:RedeemAllCodes()
+    local codes = self:GetAllCodes();
+    local getRemote = network:WaitForChild("Remote"):WaitForChild("Function");
+
+    for _, code in ipairs(codes) do
+        local args = { "RedeemCode", code }
+        local success, result = pcall(function()
+            return getRemote:InvokeServer(unpack(args))
+        end)
+        if success then task.wait(math.random(1,2)) Library:Notify("Redeemed Code: " ..tostring(string.upper(code)), 5, "Tuah")
+        else warn("Failed to redeem code:", code, result) end;
+        task.wait();
+    end;
+end;
+
+function BUBBLE_CONTENT:SafeTweenToPart(part, options)
+    local hrp = client.Character and client.Character:FindFirstChild("HumanoidRootPart")
+    if not hrp or not part then return end
+
+    options = options or {}
+    local priority = options.priority or 1
+
+    if tweenCancelToken.priority and tweenCancelToken.priority > priority then
+        return
+    end
+
+    BUBBLE_CONTENT:CancelCurrentTween()
+
+    tweenCancelToken = { cancelled = false, priority = priority }
+
+    local target_pos = part.Position
+    local current_pos = hrp.Position
+    local lateral_speed = 20
+    local vertical_speed = -math.huge
+
+    local lateral_pos = Vector3.new(target_pos.X, current_pos.Y, target_pos.Z)
+    local lateral_distance = (lateral_pos - current_pos).Magnitude
+    local lateral_time = lateral_distance / lateral_speed
+
+    local tween1 = tweenservice:Create(hrp, TweenInfo.new(lateral_time, Enum.EasingStyle.Linear), {CFrame = CFrame.new(lateral_pos)})
+    activeTween = tween1
+    tween1:Play()
+    tween1.Completed:Wait()
+
+    if tweenCancelToken.cancelled then return end
+
+    local vertical_pos = Vector3.new(target_pos.X, target_pos.Y + 5, target_pos.Z)
+    local vertical_distance = (vertical_pos - lateral_pos).Magnitude
+    local vertical_time = vertical_distance / vertical_speed
+
+    local tween2 = tweenservice:Create(hrp, TweenInfo.new(vertical_time, Enum.EasingStyle.Linear), {CFrame = CFrame.new(vertical_pos)})
+    activeTween = tween2
+    tween2:Play()
+    tween2.Completed:Wait()
+
+    activeTween = nil
+end
+
+Library.Paths = {
+    ["Folder"] = "Tuah",
+    ["Secondary"] = nil,
+    ["Data"] = "Data",
+    ["Themes"] = "Themes",
+};
+
+Library:Notify("Loaded for: \n" ..tostring(BUBBLE_HOLDER:GetGame()), 5, "Tuah")
+
+Library:Save()
+Library:Load()
+
+end
+
+BUBBLE_HOLDER:Entry()
