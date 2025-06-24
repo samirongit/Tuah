@@ -1,7 +1,6 @@
 -- [[ BLR ]]
 
 Rivals_Keeper = {};
-print(os.date()); GetVersion = tostring(Version);
 
 print("[✓] Script Loaded Successfully")
 
