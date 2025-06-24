@@ -1,70 +1,8 @@
---[[ BLR ]]
+-- [[ BLR ]]
 
 Rivals_Keeper = {};
 print(os.date()); GetVersion = tostring(Version);
 
-local env = {}
-env[1] = {
-    ["Build"] = "Public",
-    ["Version"] = "1.0.2",
-    ["UpdateCheckURL"] = "https://raw.githubusercontent.com/8T1LiYuMh96vrfvMfqAvlPbi4dR2Hhx8yzE16dG/vVoZlsyDgeOvBT90QbnXoFDQ/refs/heads/main/b8z3Qp9lJ4x7k2mD5tnvC6hwYr/version.lua",
-    ["ScriptURL"] = "https://raw.githubusercontent.com/8T1LiYuMh96vrfvMfqAvlPbi4dR2Hhx8yzE16dG/vVoZlsyDgeOvBT90QbnXoFDQ/refs/heads/main/b8z3Qp9lJ4x7k2mD5tnvC6hwYr/BLR.lua"
-}
-env[2] = {
-    ["Shutdown"] = function(reason)
-        print("[!] Script is shutting down: " .. reason)
-        task.wait(1) 
-        Client:Kick("[Tuah] - " .. reason)
-    end;
-}
-env[3] = {
-    ["CheckForUpdates"] = function()
-        local success, response = pcall(function()
-            return game:HttpGet(env[1]["UpdateCheckURL"])
-        end)
-
-        if success and response then
-            local versionData = loadstring(response)()
-            
-            if versionData then
-                if versionData.Force_Update == true then
-                    env[2]["Shutdown"]("Force update enabled by the developer")
-                end;
-
-                local serverVersion = tostring(versionData.Version)
-                if serverVersion and serverVersion ~= tostring(env[1]["Version"]) then
-                    print("[!] New update detected: " .. serverVersion)
-                    env[2]["Shutdown"]("New version available")
-                end;
-            else
-                print("[!] Failed to parse version data");
-            end;
-        else
-            print("[!] Failed to check for updates, Running in offline mode");
-        end;
-    end;
-}
-env[4] = {
-    ["VerifyIntegrity"] = function()
-        local success, response = pcall(function()
-            return game:HttpGet(env[1]["ScriptURL"])
-        end)
-
-        if success and response then
-            local localScript = game:HttpGet(env[1]["ScriptURL"])
-
-            if localScript ~= response then
-                env[2]["Shutdown"]("Script modification detected!")
-            else
-                print("[✓] Script integrity verified.")
-            end
-        else
-            print("[!] Failed to verify integrity.")
-        end
-    end
-}
-task.spawn(env[3]["CheckForUpdates"])
-task.spawn(env[4]["VerifyIntegrity"])
 print("[✓] Script Loaded Successfully")
 
 getgenv().closure = {
