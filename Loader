@@ -1,0 +1,24 @@
+-- Loader
+
+local PlaceIds = {
+    [18668065416] = "Blue Lock: Rivals",
+    [85896571713843] = "Bubble Gum Simulator Infinity",
+    [109983668079237] = "Steal a Brainrot",
+    [13796645198] = "Flashpoint"
+}
+
+if PlaceIds[game.PlaceId] then
+    print("Supported game:", PlaceIds[game.PlaceId]);
+
+    if game.PlaceId == 18668065416 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/samirongit/Tuah/refs/heads/main/Games/XQZK-MWPJ-RUAB-NVCH-YTLO"))();
+    elseif game.PlaceId == 85896571713843 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/samirongit/Tuah/refs/heads/main/Games/XZ9T-QW4L-MN7R-AV2B-CY6E"))();
+    elseif game.PlaceId == 109983668079237 then
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/samirongit/Tuah/refs/heads/main/Games/XZ9T-QW4L-MN7R-AV2B-CY6E"))();
+    elseif game.PlaceId == 13796645198 then
+        -- flashpoint
+    end;
+else
+    print("Something went wrong");
+end;
